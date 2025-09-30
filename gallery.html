@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Ada Niechorze</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        .gallery-img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold text-blue-800">Ada Niechorze</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-blue-800">Home</a>
+                    <a href="index.html#rooms" class="text-gray-600 hover:text-blue-800">Rooms</a>
+                    <a href="gallery.html" class="text-blue-800 font-medium">Gallery</a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-blue-800">Contact</a>
+                </div>
+                <button class="md:hidden focus:outline-none" id="menu-btn">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div class="md:hidden hidden mt-4" id="mobile-menu">
+                <a href="index.html" class="block py-2 text-gray-600 hover:text-blue-800">Home</a>
+                <a href="index.html#rooms" class="block py-2 text-gray-600 hover:text-blue-800">Rooms</a>
+                <a href="gallery.html" class="block py-2 text-blue-800 font-medium">Gallery</a>
+                <a href="index.html#contact" class="block py-2 text-gray-600 hover:text-blue-800">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Gallery Header -->
+    <section class="bg-blue-600 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Our Gallery</h1>
+            <p class="text-xl md:text-2xl max-w-2xl mx-auto">Explore the beauty of Ada Niechorze through our photo collection</p>
+        </div>
+    </section>
+
+    <!-- Gallery Navigation -->
+    <section class="bg-white py-8 border-b">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-center space-x-2 md:space-x-6">
+                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-blue-600 text-white" data-filter="all">All</button>
+                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition" data-filter="rooms">Rooms</button>
+                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition" data-filter="facilities">Facilities</button>
+                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition" data-filter="views">Views</button>
+                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition" data-filter="beach">Beach</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Image 1 -->
+                <div class="gallery-item rooms" data-category="rooms">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/indoor/640x360/13" alt="Standard Room" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/13', 'Standard Room')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Standard Room</p>
+                </div>
+                
+                <!-- Image 2 -->
+                <div class="gallery-item rooms" data-category="rooms">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/indoor/640x360/14" alt="Deluxe Room" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/14', 'Deluxe Room')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Deluxe Room</p>
+                </div>
+                
+                <!-- Image 3 -->
+                <div class="gallery-item rooms" data-category="rooms">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/indoor/640x360/15" alt="Family Suite" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/15', 'Family Suite')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Family Suite</p>
+                </div>
+                
+                <!-- Image 4 -->
+                <div class="gallery-item facilities" data-category="facilities">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/indoor/640x360/16" alt="Restaurant" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/16', 'Restaurant')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Restaurant</p>
+                </div>
+                
+                <!-- Image 5 -->
+                <div class="gallery-item facilities" data-category="facilities">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/indoor/640x360/17" alt="Lobby" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/17', 'Lobby')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Lobby</p>
+                </div>
+                
+                <!-- Image 6 -->
+                <div class="gallery-item facilities" data-category="facilities">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/indoor/640x360/18" alt="Pool Area" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/18', 'Pool Area')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Pool Area</p>
+                </div>
+                
+                <!-- Image 7 -->
+                <div class="gallery-item views" data-category="views">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/travel/640x360/19" alt="Sea View" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/travel/1200x630/19', 'Sea View')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Sea View</p>
+                </div>
+                
+                <!-- Image 8 -->
+                <div class="gallery-item views" data-category="views">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/aerial/640x360/20" alt="Drone View" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/aerial/1200x630/20', 'Drone View')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Drone View</p>
+                </div>
+                
+                <!-- Image 9 -->
+                <div class="gallery-item beach" data-category="beach">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/travel/640x360/21" alt="Beach Access" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/travel/1200x630/21', 'Beach Access')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Beach Access</p>
+                </div>
+                
+                <!-- Image 10 -->
+                <div class="gallery-item beach" data-category="beach">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/travel/640x360/22" alt="Sunset" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/travel/1200x630/22', 'Sunset')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Sunset</p>
+                </div>
+                
+                <!-- Image 11 -->
+                <div class="gallery-item beach" data-category="beach">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/travel/640x360/23" alt="Beach Chairs" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/travel/1200x630/23', 'Beach Chairs')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Beach Chairs</p>
+                </div>
+                
+                <!-- Image 12 -->
+                <div class="gallery-item facilities" data-category="facilities">
+                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
+                        <img src="http://static.photos/indoor/640x360/24" alt="Spa" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/24', 'Spa')">
+                    </div>
+                    <p class="mt-2 text-gray-700">Spa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center hidden">
+        <div class="relative max-w-4xl w-full">
+            <button onclick="closeModal()" class="absolute -top-10 right-0 text-white text-3xl focus:outline-none">
+                <i data-feather="x"></i>
+            </button>
+            <img id="modalImage" src="" alt="" class="w-full max-h-screen object-contain">
+            <p id="modalCaption" class="text-white text-center mt-4 text-xl"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Ada Niechorze</h3>
+                    <p class="text-gray-400">Your perfect seaside retreat offering comfort, luxury and unforgettable experiences.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="index.html#rooms" class="text-gray-400 hover:text-white">Rooms</a></li>
+                        <li><a href="gallery.html" class="text-gray-400 hover:text-white">Gallery</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i data-feather="map-pin" class="mr-2"></i>
+                            <span>Seaside Avenue 123, Niechorze</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="phone" class="mr-2"></i>
+                            <span>+48 123 456 789</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="mail" class="mr-2"></i>
+                            <span>info@adaniechorze.com</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for special offers.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
+                        <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg">
+                            <i data-feather="send"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Ada Niechorze. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Gallery filter functionality
+        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-blue-600', 'text-white');
+                    btn.classList.add('bg-gray-200', 'hover:bg-blue-600', 'hover:text-white');
+                });
+                button.classList.add('bg-blue-600', 'text-white');
+                button.classList.remove('bg-gray-200', 'hover:bg-blue-600', 'hover:text-white');
+                
+                // Filter items
+                const filter = button.getAttribute('data-filter');
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Modal functionality
+        function openModal(src, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modal.classList.remove('hidden');
+            modalImg.src = src;
+            modalCaption.textContent = caption;
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
