@@ -31,7 +31,7 @@
         <div class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <img src="http://static.photos/nature/200x200/42" alt="Ada Niechorze Logo" class="h-12 mr-3">
+                    <img src="images/logo.jpg" alt="Ada Niechorze Logo" class="h-12 mr-3">
                     <a href="index.html" class="text-2xl font-bold text-blue-800">Ada Niechorze</a>
 </div>
                 <div class="hidden md:flex space-x-8">
@@ -51,12 +51,18 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-bg h-screen flex items-center justify-center text-white">
-        <div class="text-center px-4">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">Welcome to Ada Niechorze</h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Your perfect seaside getaway with breathtaking views and luxurious comfort</p>
-            <a href="#rooms" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium inline-block transition duration-300">Explore Rooms</a>
+    <section class="hero-bg h-screen flex items-center justify-center text-white bg-cover bg-center relative" style="background-image: url('images/crop1dron.jpg');">
+    <div class="text-center px-4">
+        <div class="bg-black bg-opacity-50 p-8 rounded-xl inline-block">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">Witamy w Ada Niechorze</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+                Your perfect seaside getaway with breathtaking views and luxurious comfort
+            </p>
+            <a href="#rooms" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium inline-block transition duration-300">
+                Explore Rooms
+            </a>
         </div>
+    </div>
     </section>
 
     <!-- About Section -->
@@ -178,105 +184,58 @@
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="md:flex">
-                    <div class="md:w-1/2 p-8">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Contact Us</h2>
-                        <form>
-                            <div class="mb-4">
-                                <label for="name" class="block text-gray-700 mb-2">Name</label>
-                                <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
-                            </div>
-                            <div class="mb-4">
-                                <label for="email" class="block text-gray-700 mb-2">Email</label>
-                                <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
-                            </div>
-                            <div class="mb-4">
-                                <label for="message" class="block text-gray-700 mb-2">Message</label>
-                                <textarea id="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition duration-300">Send Message</button>
-                        </form>
-                    </div>
-                    <div class="md:w-1/2 bg-blue-600 text-white p-8">
-                        <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
-                        <div class="mb-6">
-                            <div class="flex items-center mb-4">
-                                <i data-feather="map-pin" class="mr-4"></i>
-                                <span>Seaside Avenue 123, Niechorze, Poland</span>
-                            </div>
-                            <div class="flex items-center mb-4">
-                                <i data-feather="phone" class="mr-4"></i>
-                                <span>+48 123 456 789</span>
-                            </div>
-                            <div class="flex items-center">
-                                <i data-feather="mail" class="mr-4"></i>
-                                <span>info@adaniechorze.com</span>
-                            </div>
-                        </div>
-                        <div class="mt-8">
-                            <h4 class="text-xl font-bold mb-4">Follow Us</h4>
-                            <div class="flex space-x-4">
-                                <a href="#" class="hover:text-blue-200"><i data-feather="facebook"></i></a>
-                                <a href="#" class="hover:text-blue-200"><i data-feather="instagram"></i></a>
-                                <a href="#" class="hover:text-blue-200"><i data-feather="twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Znajdziesz nas tutaj</h2>
+            <div class="w-full h-96">
+            <!-- Tutaj wrzuć iframe z Google Maps dla Ada Niechorze -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1391.2853914703312!2d15.071336944041004!3d54.094067510465614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4700767c8f8824af%3A0xab2d863e60baa569!2sADA%20NIECHORZE!5e0!3m2!1spl!2spl!4v1759247011600!5m2!1spl!2spl"
+                width="100%" height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
             </div>
         </div>
+        </div>
+    </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Ada Niechorze</h3>
-                    <p class="text-gray-400">Your perfect seaside retreat offering comfort, luxury and unforgettable experiences.</p>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                <li><a href="index.html" class="text-gray-400 hover:text-white">Strona główna</a></li>
-<li><a href="gallery.html" class="text-gray-400 hover:text-white">Galeria</a></li>
-</ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center">
-                            <i data-feather="map-pin" class="mr-2"></i>
-                            <span>Seaside Avenue 123, Niechorze</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="phone" class="mr-2"></i>
-                            <span>+48 123 456 789</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="mail" class="mr-2"></i>
-                            <span>info@adaniechorze.com</span>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
-                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for special offers.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
-                        <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg">
-                            <i data-feather="send"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 Ada Niechorze. All rights reserved.</p>
-            </div>
+    <footer class="bg-sky-800 text-white py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <img src="images/lighthouse.png" alt="Ada Niechorze Logo" class="h-16 mb-4 object-cover rounded">
+          <p class="text-sky-200"></p>
         </div>
-    </footer>
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Kontakt</h3>
+          <p class="text-sky-200 mb-2">Niechorze, Polna 1</p>
+          <p class="text-sky-200 mb-2">Tel: +48 601 886 783</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Linki</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-sky-200 hover:text-white">Strona główna</a></li>
+            <li><a href="gallery.html" class="text-sky-200 hover:text-white">Galeria</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Znajdź nas na Facebooku</h3>
+          <div class="flex space-x-4">
+            <a href="https://www.facebook.com/adaniechorze" class="text-sky-200 hover:text-white"><i data-feather="facebook"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-sky-700 mt-8 pt-8 text-center text-sky-300">
+        <p>&copy; 2025 Ada Niechorze. Wszelkie prawa zastrzeżone.</p>
+      </div>
+    </div>
+  </footer>
 
     <script>
         feather.replace();
