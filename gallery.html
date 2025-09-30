@@ -3,34 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery - Ada Niechorze</title>
+    <title>Galeria - Ada Niechorze</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <style>
         .gallery-img {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
         .gallery-img:hover {
             transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         .modal {
-            transition: opacity 0.3s ease;
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1200px;
+            max-height: 80vh;
+            margin-top: 5vh;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1200px;
+            text-align: center;
+            color: #fff;
+            padding: 10px 0;
+        }
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        @media only screen and (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+            }
+            .nav-btn {
+                padding: 8px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans bg-white text-gray-800">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <a href="index.html" class="text-2xl font-bold text-blue-800">Ada Niechorze</a>
+                <div class="flex items-center">
+                    <img src="http://static.photos/nature/200x200/42" alt="Ada Niechorze Logo" class="h-12 mr-3">
+                    <a href="#" class="text-2xl font-bold text-sky-800">Ada Niechorze</a>
+                </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="index.html" class="text-gray-600 hover:text-blue-800">Home</a>
-                    <a href="index.html#rooms" class="text-gray-600 hover:text-blue-800">Rooms</a>
-                    <a href="gallery.html" class="text-blue-800 font-medium">Gallery</a>
-                    <a href="index.html#contact" class="text-gray-600 hover:text-blue-800">Contact</a>
+                    <a href="index.html" class="text-gray-600 hover:text-sky-600 font-medium">Strona główna</a>
+                    <a href="gallery.html" class="text-sky-600 font-medium">Galeria</a>
                 </div>
                 <button class="md:hidden focus:outline-none" id="menu-btn">
                     <i data-feather="menu"></i>
@@ -38,201 +105,122 @@
             </div>
             <!-- Mobile menu -->
             <div class="md:hidden hidden mt-4" id="mobile-menu">
-                <a href="index.html" class="block py-2 text-gray-600 hover:text-blue-800">Home</a>
-                <a href="index.html#rooms" class="block py-2 text-gray-600 hover:text-blue-800">Rooms</a>
-                <a href="gallery.html" class="block py-2 text-blue-800 font-medium">Gallery</a>
-                <a href="index.html#contact" class="block py-2 text-gray-600 hover:text-blue-800">Contact</a>
-            </div>
+                <a href="index.html" class="block py-2 text-sky-600 font-medium">Strona główna</a>
+                <a href="gallery.html" class="block py-2 text-gray-600 hover:text-sky-600">Galeria</a>
+</div>
         </div>
     </nav>
-
-    <!-- Gallery Header -->
-    <section class="bg-blue-600 text-white py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">Our Gallery</h1>
-            <p class="text-xl md:text-2xl max-w-2xl mx-auto">Explore the beauty of Ada Niechorze through our photo collection</p>
-        </div>
-    </section>
-
-    <!-- Gallery Navigation -->
-    <section class="bg-white py-8 border-b">
+    <!-- Gallery Section -->
+    <section class="py-16 bg-sky-50">
         <div class="container mx-auto px-6">
-            <div class="flex flex-wrap justify-center space-x-2 md:space-x-6">
-                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-blue-600 text-white" data-filter="all">All</button>
-                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition" data-filter="rooms">Rooms</button>
-                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition" data-filter="facilities">Facilities</button>
-                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition" data-filter="views">Views</button>
-                <button class="gallery-filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition" data-filter="beach">Beach</button>
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-sky-700 mb-4">Galeria Ada Niechorze</h1>
+                <p class="text-xl text-gray-600">Zobacz nasze piękne otoczenie i udogodnienia</p>
+                <div class="w-24 h-1 bg-sky-500 mx-auto mt-4"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- Gallery Grid -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Image 1 -->
-                <div class="gallery-item rooms" data-category="rooms">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/indoor/640x360/13" alt="Standard Room" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/13', 'Standard Room')">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="overflow-hidden rounded-lg shadow-md bg-white gallery-img" onclick="openModal(0)">
+                    <img src="http://static.photos/nature/640x360/1" alt="Plaża" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-sky-700">Plaża w Niechorzu</h3>
                     </div>
-                    <p class="mt-2 text-gray-700">Standard Room</p>
                 </div>
-                
-                <!-- Image 2 -->
-                <div class="gallery-item rooms" data-category="rooms">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/indoor/640x360/14" alt="Deluxe Room" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/14', 'Deluxe Room')">
+                <div class="overflow-hidden rounded-lg shadow-md bg-white gallery-img" onclick="openModal(1)">
+                    <img src="http://static.photos/nature/640x360/2" alt="Basen" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-sky-700">Strefa basenowa</h3>
                     </div>
-                    <p class="mt-2 text-gray-700">Deluxe Room</p>
                 </div>
-                
-                <!-- Image 3 -->
-                <div class="gallery-item rooms" data-category="rooms">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/indoor/640x360/15" alt="Family Suite" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/15', 'Family Suite')">
+                <div class="overflow-hidden rounded-lg shadow-md bg-white gallery-img" onclick="openModal(2)">
+                    <img src="http://static.photos/nature/640x360/3" alt="Jacuzzi" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-sky-700">Relaks w jacuzzi</h3>
                     </div>
-                    <p class="mt-2 text-gray-700">Family Suite</p>
                 </div>
-                
-                <!-- Image 4 -->
-                <div class="gallery-item facilities" data-category="facilities">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/indoor/640x360/16" alt="Restaurant" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/16', 'Restaurant')">
+                <div class="overflow-hidden rounded-lg shadow-md bg-white gallery-img" onclick="openModal(3)">
+                    <img src="http://static.photos/nature/640x360/4" alt="Domki" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-sky-700">Nasze domki</h3>
                     </div>
-                    <p class="mt-2 text-gray-700">Restaurant</p>
                 </div>
-                
-                <!-- Image 5 -->
-                <div class="gallery-item facilities" data-category="facilities">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/indoor/640x360/17" alt="Lobby" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/17', 'Lobby')">
+                <div class="overflow-hidden rounded-lg shadow-md bg-white gallery-img" onclick="openModal(4)">
+                    <img src="http://static.photos/nature/640x360/5" alt="Okolica" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-sky-700">Malownicza okolica</h3>
                     </div>
-                    <p class="mt-2 text-gray-700">Lobby</p>
                 </div>
-                
-                <!-- Image 6 -->
-                <div class="gallery-item facilities" data-category="facilities">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/indoor/640x360/18" alt="Pool Area" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/18', 'Pool Area')">
+                <div class="overflow-hidden rounded-lg shadow-md bg-white gallery-img" onclick="openModal(5)">
+                    <img src="http://static.photos/nature/640x360/6" alt="Latarnia" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-sky-700">Latarnia morska</h3>
                     </div>
-                    <p class="mt-2 text-gray-700">Pool Area</p>
-                </div>
-                
-                <!-- Image 7 -->
-                <div class="gallery-item views" data-category="views">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/travel/640x360/19" alt="Sea View" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/travel/1200x630/19', 'Sea View')">
-                    </div>
-                    <p class="mt-2 text-gray-700">Sea View</p>
-                </div>
-                
-                <!-- Image 8 -->
-                <div class="gallery-item views" data-category="views">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/aerial/640x360/20" alt="Drone View" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/aerial/1200x630/20', 'Drone View')">
-                    </div>
-                    <p class="mt-2 text-gray-700">Drone View</p>
-                </div>
-                
-                <!-- Image 9 -->
-                <div class="gallery-item beach" data-category="beach">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/travel/640x360/21" alt="Beach Access" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/travel/1200x630/21', 'Beach Access')">
-                    </div>
-                    <p class="mt-2 text-gray-700">Beach Access</p>
-                </div>
-                
-                <!-- Image 10 -->
-                <div class="gallery-item beach" data-category="beach">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/travel/640x360/22" alt="Sunset" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/travel/1200x630/22', 'Sunset')">
-                    </div>
-                    <p class="mt-2 text-gray-700">Sunset</p>
-                </div>
-                
-                <!-- Image 11 -->
-                <div class="gallery-item beach" data-category="beach">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/travel/640x360/23" alt="Beach Chairs" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/travel/1200x630/23', 'Beach Chairs')">
-                    </div>
-                    <p class="mt-2 text-gray-700">Beach Chairs</p>
-                </div>
-                
-                <!-- Image 12 -->
-                <div class="gallery-item facilities" data-category="facilities">
-                    <div class="overflow-hidden rounded-lg shadow-md cursor-pointer gallery-img">
-                        <img src="http://static.photos/indoor/640x360/24" alt="Spa" class="w-full h-64 object-cover" onclick="openModal('http://static.photos/indoor/1200x630/24', 'Spa')">
-                    </div>
-                    <p class="mt-2 text-gray-700">Spa</p>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- Modal -->
-    <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center hidden">
+    <div id="myModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 hidden">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300">&times;</button>
+        
+        <button onclick="changeSlide(-1)" class="absolute left-4 bg-black bg-opacity-50 text-white p-4 rounded-full hover:bg-opacity-70 focus:outline-none">
+            <i data-feather="chevron-left" class="w-8 h-8"></i>
+        </button>
+        
         <div class="relative max-w-4xl w-full">
-            <button onclick="closeModal()" class="absolute -top-10 right-0 text-white text-3xl focus:outline-none">
-                <i data-feather="x"></i>
-            </button>
-            <img id="modalImage" src="" alt="" class="w-full max-h-screen object-contain">
-            <p id="modalCaption" class="text-white text-center mt-4 text-xl"></p>
+            <img id="modalImg" class="max-h-[80vh] mx-auto" src="" alt="">
+            <div id="caption" class="text-center text-white mt-4 text-xl"></div>
         </div>
+        
+        <button onclick="changeSlide(1)" class="absolute right-4 bg-black bg-opacity-50 text-white p-4 rounded-full hover:bg-opacity-70 focus:outline-none">
+            <i data-feather="chevron-right" class="w-8 h-8"></i>
+        </button>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+<footer class="bg-sky-800 text-white py-12">
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Ada Niechorze</h3>
-                    <p class="text-gray-400">Your perfect seaside retreat offering comfort, luxury and unforgettable experiences.</p>
+                    <img src="http://static.photos/nature/200x200/42" alt="Ada Niechorze Logo" class="h-16 mb-4">
+                    <p class="text-sky-200">Wypoczynek nad pięknym polskim morzem w Niechorzu.</p>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <h3 class="text-xl font-semibold mb-4">Kontakt</h3>
+                    <p class="text-sky-200 mb-2">Pobierowo, zachodniopomorskie</p>
+                    <p class="text-sky-200 mb-2">Tel: +48 123 456 789</p>
+                    <p class="text-sky-200">Email: kontakt@bajkowe-domki.pl</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Linki</h3>
                     <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
-                        <li><a href="index.html#rooms" class="text-gray-400 hover:text-white">Rooms</a></li>
-                        <li><a href="gallery.html" class="text-gray-400 hover:text-white">Gallery</a></li>
-                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="index.html" class="text-sky-200 hover:text-white">Strona główna</a></li>
+                        <li><a href="gallery.html" class="text-sky-200 hover:text-white">Galeria</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center">
-                            <i data-feather="map-pin" class="mr-2"></i>
-                            <span>Seaside Avenue 123, Niechorze</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="phone" class="mr-2"></i>
-                            <span>+48 123 456 789</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="mail" class="mr-2"></i>
-                            <span>info@adaniechorze.com</span>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
-                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for special offers.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
-                        <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg">
-                            <i data-feather="send"></i>
-                        </button>
+                    <h3 class="text-xl font-semibold mb-4">Social Media</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-sky-200 hover:text-white"><i data-feather="facebook"></i></a>
+                        <a href="#" class="text-sky-200 hover:text-white"><i data-feather="instagram"></i></a>
+                        <a href="#" class="text-sky-200 hover:text-white"><i data-feather="twitter"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 Ada Niechorze. All rights reserved.</p>
+            <div class="border-t border-sky-700 mt-8 pt-8 text-center text-sky-300">
+                <p>&copy; 2023 Ada Niechorze. Wszelkie prawa zastrzeżone.</p>
             </div>
         </div>
     </footer>
-
-    <script>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+        <img class="modal-content" id="modalImg">
+        <div id="caption" class="caption"></div>
+        <a class="next" onclick="changeSlide(1)">&#10095;</a>
+    </div>
+<script>
         feather.replace();
         
         // Mobile menu toggle
@@ -240,57 +228,61 @@
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
         });
-        
-        // Gallery filter functionality
-        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active button
-                filterButtons.forEach(btn => {
-                    btn.classList.remove('bg-blue-600', 'text-white');
-                    btn.classList.add('bg-gray-200', 'hover:bg-blue-600', 'hover:text-white');
-                });
-                button.classList.add('bg-blue-600', 'text-white');
-                button.classList.remove('bg-gray-200', 'hover:bg-blue-600', 'hover:text-white');
-                
-                // Filter items
-                const filter = button.getAttribute('data-filter');
-                galleryItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-        
-        // Modal functionality
-        function openModal(src, caption) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            const modalCaption = document.getElementById('modalCaption');
-            
+        // Gallery images data
+        const galleryImages = [
+            { src: 'http://static.photos/nature/1200x630/1', caption: 'Plaża w Niechorzu - piękna piaszczysta plaża z widokiem na morze' },
+            { src: 'http://static.photos/nature/1200x630/2', caption: 'Strefa basenowa - nasz ogrzewany basen z widokiem na morze' },
+            { src: 'http://static.photos/nature/1200x630/3', caption: 'Relaks w jacuzzi - strefa wellness dla naszych gości' },
+            { src: 'http://static.photos/nature/1200x630/4', caption: 'Nasze domki - komfortowe drewniane domki z tarasami' },
+            { src: 'http://static.photos/nature/1200x630/5', caption: 'Malownicza okolica - widok na klif i morze' },
+            { src: 'http://static.photos/nature/1200x630/6', caption: 'Latarnia morska w Niechorzu - ikona regionu' }
+        ];
+
+        let currentIndex = 0;
+        const modal = document.getElementById('myModal');
+        const modalImg = document.getElementById('modalImg');
+        const captionText = document.getElementById('caption');
+
+        function openModal(index) {
+            currentIndex = index;
             modal.classList.remove('hidden');
-            modalImg.src = src;
-            modalCaption.textContent = caption;
+            modalImg.src = galleryImages[currentIndex].src;
+            captionText.innerHTML = galleryImages[currentIndex].caption;
             document.body.style.overflow = 'hidden';
         }
-        
+
         function closeModal() {
-            const modal = document.getElementById('imageModal');
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
-        
-        // Close modal when clicking outside the image
-        document.getElementById('imageModal').addEventListener('click', function(e) {
-            if (e.target === this) {
+
+        function changeSlide(n) {
+            currentIndex += n;
+            if (currentIndex >= galleryImages.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = galleryImages.length - 1;
+            modalImg.src = galleryImages[currentIndex].src;
+            captionText.innerHTML = galleryImages[currentIndex].caption;
+        }
+
+        // Close when clicking outside of image
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
                 closeModal();
             }
         });
-    </script>
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === 'ArrowLeft') {
+                    changeSlide(-1);
+                } else if (e.key === 'ArrowRight') {
+                    changeSlide(1);
+                }
+            }
+        });
+</script>
 </body>
 </html>
