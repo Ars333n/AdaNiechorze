@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ada Niechorze - Seaside Hotel</title>
+    <title>Ada Niechorze - Pensjonat nad morzem w Niechorzu</title>
+    <meta name="description" content="Pensjonat Ada w Niechorzu - komfortowy wypoczynek nad morzem, 300m od plaży. Pokoje z łazienkami, ogród z altaną, bezpłatne WiFi.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('http://static.photos/travel/1200x630/1');
-            background-size: cover;
-            background-position: center;
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(12, 74, 110, 0.75) 0%, rgba(8, 47, 73, 0.85) 100%);
+        }
+        .room-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .room-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
         .parallax {
             background-attachment: fixed;
@@ -23,282 +33,665 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+        @media (max-width: 768px) {
+            .parallax {
+                background-attachment: scroll;
+            }
+        }
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+        .feature-item:hover .feature-icon {
+            transform: scale(1.1);
+            color: #0369a1;
+        }
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #0284c7 0%, #0ea5e9 100%);
+            margin: 0 auto;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(2, 132, 199, 0.3);
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.7) 0%, rgba(3, 105, 161, 0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        .gallery-item img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.15);
+        }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="antialiased bg-white text-gray-900">
+
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-3">
+    <nav class="bg-white shadow-md sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-6 lg:px-8 py-4">
             <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <img src="images/logo.jpg" alt="Ada Niechorze Logo" class="h-12 mr-3">
-                    <a href="index.html" class="text-2xl font-bold text-blue-800">Ada Niechorze</a>
-</div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="text-blue-800 font-medium">Strona główna</a>
-                    <a href="gallery.html" class="text-gray-600 hover:text-blue-800">Galeria</a>
-                    <div class="flex items-center text-blue-800">
-                        <i data-feather="phone" class="mr-2"></i>
-                        <span>+48 601 886 783</span>
+                <div class="flex items-center space-x-3">
+                    <img src="images/logo.jpg" alt="Ada Niechorze Logo" class="h-14 w-14 object-cover rounded-lg shadow-sm">
+                    <div>
+                        <a href="index.html" class="text-2xl lg:text-3xl font-bold text-sky-900 tracking-tight">Ada Niechorze</a>
+                        <p class="text-xs text-gray-500 hidden sm:block">Ośrodek wczasowy</p>
                     </div>
                 </div>
-<button class="md:hidden focus:outline-none" id="menu-btn">
-                    <i data-feather="menu"></i>
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#o-nas" class="text-gray-700 hover:text-sky-700 font-medium transition-colors">O nas</a>
+                    <a href="#pokoje" class="text-gray-700 hover:text-sky-700 font-medium transition-colors">Pokoje</a>
+                    <a href="gallery.html" class="text-gray-700 hover:text-sky-700 font-medium transition-colors">Galeria</a>
+                    <a href="#kontakt" class="text-gray-700 hover:text-sky-700 font-medium transition-colors">Kontakt</a>
+                    <div class="flex items-center text-sky-800 bg-sky-50 px-4 py-2 rounded-lg">
+                        <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+                        <span class="font-semibold text-sm">+48 601 886 783</span>
+                    </div>
+                </div>
+                <button class="lg:hidden focus:outline-none text-gray-700" id="menu-btn">
+                    <i data-feather="menu" class="w-6 h-6"></i>
                 </button>
             </div>
             <!-- Mobile menu -->
-            <div class="md:hidden hidden mt-4" id="mobile-menu">
-                <a href="index.html" class="block py-2 text-blue-800 font-medium">Strona główna</a>
-<a href="gallery.html" class="block py-2 text-gray-600 hover:text-blue-800">Galeria</a>
-</div>
+            <div class="lg:hidden hidden mt-4 pb-4 border-t border-gray-100 pt-4" id="mobile-menu">
+                <a href="#o-nas" class="block py-3 text-gray-700 hover:text-sky-700 font-medium transition-colors">O nas</a>
+                <a href="#pokoje" class="block py-3 text-gray-700 hover:text-sky-700 font-medium transition-colors">Pokoje</a>
+                <a href="gallery.html" class="block py-3 text-gray-700 hover:text-sky-700 font-medium transition-colors">Galeria</a>
+                <a href="#kontakt" class="block py-3 text-gray-700 hover:text-sky-700 font-medium transition-colors">Kontakt</a>
+                <div class="flex items-center text-sky-800 mt-4 bg-sky-50 px-4 py-3 rounded-lg">
+                    <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+                    <span class="font-semibold">+48 601 886 783</span>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-bg h-screen flex items-center justify-center text-white bg-cover bg-center relative" style="background-image: url('images/crop1dron.jpg');">
-    <div class="text-center px-4">
-        <div class="bg-black bg-opacity-50 p-8 rounded-xl inline-block">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">Witamy w Ada Niechorze</h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
-                Rodzinne wakacje nad morzem
+    <section class="relative h-screen min-h-[600px] flex items-center justify-center bg-cover bg-center" style="background-image: url('images/crop1dron.jpg');">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in">
+                Witamy w Ada Niechorze
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-sky-50 mb-10 max-w-3xl mx-auto leading-relaxed">
+                Rodzinne wakacje nad morzem w komfortowych warunkach, zaledwie 300 metrów od pięknej plaży
             </p>
-            <a href="#rooms" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium inline-block transition duration-300">
-                Zobacz nasze pokoje
-            </a>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#pokoje" class="btn-primary text-white px-8 py-4 rounded-full font-semibold inline-block shadow-lg text-lg">
+                    Zobacz nasze pokoje
+                </a>
+                <a href="#kontakt" class="bg-white text-sky-900 px-8 py-4 rounded-full font-semibold inline-block hover:bg-gray-50 transition-all shadow-lg text-lg">
+                    Skontaktuj się z nami
+                </a>
+            </div>
         </div>
-    </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-feather="chevron-down" class="text-white w-8 h-8"></i>
+        </div>
     </section>
 
-    <!-- About Section -->
-    <section class="py-20 bg-white">
+    <!-- Features Bar -->
+    <section class="bg-gradient-to-r from-sky-700 to-sky-600 py-8">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-6">O nas</h2>
-                    <p class="text-gray-600 mb-6">Znajdujemy się około 300m od pięknej plaży w Niechorzu. Nasz ośrodek oferuje komfortowe warunki wypoczynku w przepięknej nadmorskiej scenerii.</p>
-                    <p class="text-gray-600 mb-6">Każdy z naszych pokoi wyposażony jest w prywatną łazienkę. Za zwierzęta oraz klimatyzację w domkach pobierana jest dodatkowa opłata.</p>
-                    <div class="flex space-x-4">
-                        <div class="flex items-center">
-                            <i data-feather="wifi" class="text-blue-600 mr-2"></i>
-                            <span>Darmowe WiFi</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i data-feather="anchor" class="text-blue-600 mr-2"></i>
-                            <span>Blisko plaży</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i data-feather="home" class="text-blue-600 mr-2"></i>
-                            <span>Ogród z altaną</span>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-white">
+                <div class="feature-item flex items-center justify-center space-x-3">
+                    <i data-feather="map-pin" class="feature-icon w-8 h-8"></i>
+                    <div>
+                        <p class="font-semibold text-lg">300m od plaży</p>
+                        <p class="text-sky-100 text-sm">Blisko morza</p>
                     </div>
-</div>
-                <div class="md:w-1/2 md:pl-12">
-                    <img src="images/0.jpg" alt="Hotel view" class="rounded-lg shadow-xl">
+                </div>
+                <div class="feature-item flex items-center justify-center space-x-3">
+                    <i data-feather="wifi" class="feature-icon w-8 h-8"></i>
+                    <div>
+                        <p class="font-semibold text-lg">Darmowe WiFi</p>
+                        <p class="text-sky-100 text-sm">W całym obiekcie</p>
+                    </div>
+                </div>
+                <div class="feature-item flex items-center justify-center space-x-3">
+                    <i data-feather="home" class="feature-icon w-8 h-8"></i>
+                    <div>
+                        <p class="font-semibold text-lg">Ogród z altaną</p>
+                        <p class="text-sky-100 text-sm">Relaks na świeżym powietrzu</p>
+                    </div>
+                </div>
+                <div class="feature-item flex items-center justify-center space-x-3">
+                    <i data-feather="shield" class="feature-icon w-8 h-8"></i>
+                    <div>
+                        <p class="font-semibold text-lg">Prywatne łazienki</p>
+                        <p class="text-sky-100 text-sm">W każdym pokoju</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Drone View Section -->
-    <section class="parallax h-96" style="background-image: url('images/panorama.jpg');">
-        <div class="h-full flex items-center justify-center bg-black bg-opacity-40 ">
-            <div class="text-center text-white px-4">
-                <h2 class="text-4xl font-bold mb-4">Breathtaking Views</h2>
-                <p class="text-xl max-w-2xl mx-auto">Experience our stunning location from above with this exclusive drone footage</p>
+    <!-- About Section -->
+    <section id="o-nas" class="py-20 lg:py-28 bg-white">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="text-sky-600 font-semibold mb-3 uppercase tracking-wide text-sm">Nasz pensjonat</div>
+                    <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">O nas</h2>
+                    <div class="section-divider mb-8"></div>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Pensjonat Ada znajduje się w malowniczym Niechorzu, zaledwie około 300 metrów od pięknej plaży. Oferujemy komfortowe warunki wypoczynku w przepięknej nadmorskiej scenerii, idealnej dla rodzin i par.
+                    </p>
+                    <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                        Każdy z naszych pokoi wyposażony jest w prywatną łazienkę, zapewniając naszym gościom pełną wygodę i prywatność. Dla miłośników zwierząt oraz komfortu oferujemy możliwość dokwaterowania czworonogów oraz klimatyzację w domkach za dodatkową opłatą.
+                    </p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-start space-x-3 bg-sky-50 p-4 rounded-lg">
+                            <i data-feather="check-circle" class="text-sky-600 mt-1 flex-shrink-0 w-5 h-5"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Blisko plaży</h4>
+                                <p class="text-gray-600 text-sm">Spacer nad morze zajmuje tylko kilka minut</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 bg-sky-50 p-4 rounded-lg">
+                            <i data-feather="check-circle" class="text-sky-600 mt-1 flex-shrink-0 w-5 h-5"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Darmowe WiFi</h4>
+                                <p class="text-gray-600 text-sm">Szybki internet w całym obiekcie</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 bg-sky-50 p-4 rounded-lg">
+                            <i data-feather="check-circle" class="text-sky-600 mt-1 flex-shrink-0 w-5 h-5"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Ogród z altaną</h4>
+                                <p class="text-gray-600 text-sm">Miejsce na grilla i wypoczynek</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 bg-sky-50 p-4 rounded-lg">
+                            <i data-feather="check-circle" class="text-sky-600 mt-1 flex-shrink-0 w-5 h-5"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Parking</h4>
+                                <p class="text-gray-600 text-sm">Bezpłatny parking dla gości</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <div class="relative">
+                        <img src="images/0.jpg" alt="Pensjonat Ada Niechorze" class="rounded-2xl shadow-2xl w-full">
+                        <div class="absolute -bottom-6 -left-6 bg-sky-700 text-white p-6 rounded-xl shadow-xl hidden lg:block">
+                            <div class="text-4xl font-bold">20+</div>
+                            <div class="text-sky-100 text-sm">Lat doświadczenia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax h-96 lg:h-[500px] relative" style="background-image: url('images/sunset.jpg');">
+        <!-- <div class="absolute inset-0 bg-gradient-to-r from-sky-900/80 to-sky-800/80"></div> -->
+        <div class="relative h-full flex items-center justify-center">
+            <div class="text-center text-white px-6 max-w-3xl">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                    Zapierające dech widoki
+                </h2>
+                <p class="text-lg md:text-xl text-sky-50 leading-relaxed">
+                    Odkryj urokliwe otoczenie naszego pensjonatu i piękno nadmorskiego krajobrazu
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Rooms Section -->
-    <section id="rooms" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Nasze Pokoje</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Room 1 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/4" alt="Pokój 1" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 1</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-                
-                <!-- Room 2 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/5" alt="Pokój 2" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 2</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-                
-                <!-- Room 3 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/6" alt="Pokój 3" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 3</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-
-                <!-- Room 4 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/7" alt="Pokój 4" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 4</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-
-                <!-- Room 5 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/8" alt="Pokój 5" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 5</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-
-                <!-- Room 6 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/9" alt="Pokój 6" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 6</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-
-                <!-- Room 7 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/10" alt="Pokój 7" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 7</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-
-                <!-- Room 8 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/11" alt="Pokój 8" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 8</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-
-                <!-- Room 9 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/12" alt="Pokój 9" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 9</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-
-                <!-- Room 10 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/13" alt="Pokój 10" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 10</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
-
-                <!-- Room 11 -->
-                <div class="room-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <img src="http://static.photos/indoor/640x360/14" alt="Pokój 11" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Pokój 11</h3>
-                        <p class="text-gray-600">1 pokój • 2 łóżka</p>
-</div>
-                </div>
+    <section id="pokoje" class="py-20 lg:py-28 bg-gray-50">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="text-sky-600 font-semibold mb-3 uppercase tracking-wide text-sm">Noclegi</div>
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Nasze pokoje</h2>
+                <div class="section-divider mb-6"></div>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Komfortowe pokoje z prywatnymi łazienkami, zapewniające wygodny i relaksujący pobyt
+                </p>
             </div>
-</div>
-    </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Photo Gallery</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="overflow-hidden rounded-lg shadow-md">
-                    <img src="http://static.photos/indoor/640x360/7" alt="Hotel lobby" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Room Cards -->
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/4" alt="Pokój 1" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 1</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-md">
-                    <img src="http://static.photos/indoor/640x360/8" alt="Restaurant" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/5" alt="Pokój 2" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 2</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-md">
-                    <img src="http://static.photos/indoor/640x360/9" alt="Pool area" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/6" alt="Pokój 3" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 3</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-md">
-                    <img src="http://static.photos/indoor/640x360/10" alt="Standard Room" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/7" alt="Pokój 4" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 4</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-md">
-                    <img src="http://static.photos/indoor/640x360/11" alt="Deluxe Room" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/8" alt="Pokój 5" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 5</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
                 </div>
-                <div class="overflow-hidden rounded-lg shadow-md">
-                    <img src="http://static.photos/indoor/640x360/12" alt="Family Suite" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/9" alt="Pokój 6" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 6</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="text-center mt-10">
-                <a href="gallery.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition duration-300">Zobacz pełną galerię</a>
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/10" alt="Pokój 7" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 7</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
+                </div>
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/11" alt="Pokój 8" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 8</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
+                </div>
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/12" alt="Pokój 9" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 9</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
+                </div>
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/13" alt="Pokój 10" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 10</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
+                </div>
+
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="http://static.photos/indoor/640x360/14" alt="Pokój 11" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-sky-700">
+                            Dostępny
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Pokój 11</h3>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                            <span>2 łóżka • Pokój 1-osobowy</span>
+                        </div>
+                        <div class="flex items-center text-gray-600 mb-4">
+                            <i data-feather="droplet" class="w-4 h-4 mr-2"></i>
+                            <span>Prywatna łazienka</span>
+                        </div>
+                        <a href="tel:+48601886783" class="block text-center bg-sky-600 hover:bg-sky-700 text-white py-3 rounded-lg font-semibold transition-colors">
+                            Zarezerwuj teraz
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Gallery Preview Section -->
+    <section class="py-20 lg:py-28 bg-white">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="text-sky-600 font-semibold mb-3 uppercase tracking-wide text-sm">Odkryj więcej</div>
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Galeria zdjęć</h2>
+                <div class="section-divider mb-6"></div>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Zobacz nasze wnętrza, otoczenie i udogodnienia
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="http://static.photos/indoor/640x360/7" alt="Wnętrze pensjonatu" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="http://static.photos/indoor/640x360/8" alt="Pokój gościnny" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="http://static.photos/indoor/640x360/9" alt="Ogród" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="http://static.photos/indoor/640x360/10" alt="Pokój standardowy" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="http://static.photos/indoor/640x360/11" alt="Pokój deluxe" class="w-full h-64 object-cover">
+                </div>
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                    <img src="http://static.photos/indoor/640x360/12" alt="Apartament rodzinny" class="w-full h-64 object-cover">
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="gallery.html" class="btn-primary text-white px-10 py-4 rounded-full font-semibold inline-block shadow-lg text-lg">
+                    Zobacz pełną galerię
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-        <div class="p-8 text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Znajdziesz nas tutaj</h2>
-            <div class="w-full h-96">
-            <!-- Tutaj wrzuć iframe z Google Maps dla Ada Niechorze -->
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1391.2853914703312!2d15.071336944041004!3d54.094067510465614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4700767c8f8824af%3A0xab2d863e60baa569!2sADA%20NIECHORZE!5e0!3m2!1spl!2spl!4v1759247011600!5m2!1spl!2spl"
-                width="100%" height="100%"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+    <section id="kontakt" class="py-20 lg:py-28 bg-gradient-to-br from-sky-50 to-sky-100">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="text-sky-600 font-semibold mb-3 uppercase tracking-wide text-sm">Skontaktuj się</div>
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Znajdziesz nas tutaj</h2>
+                <div class="section-divider mb-6"></div>
+            </div>
+
+            <div class="max-w-6xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    <div class="grid lg:grid-cols-5">
+                        <div class="lg:col-span-2 bg-gradient-to-br from-sky-700 to-sky-600 p-10 lg:p-12 text-white">
+                            <h3 class="text-3xl font-bold mb-8">Dane kontaktowe</h3>
+                            
+                            <div class="space-y-6 mb-10">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-sky-600 p-3 rounded-lg">
+                                        <i data-feather="map-pin" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Adres</h4>
+                                        <p class="text-sky-100">Polna 1<br>72-350 Niechorze</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-sky-600 p-3 rounded-lg">
+                                        <i data-feather="phone" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Telefon</h4>
+                                        <a href="tel:+48601886783" class="text-sky-100 hover:text-white transition-colors">+48 601 886 783</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-sky-600 p-3 rounded-lg">
+                                        <i data-feather="facebook" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Facebook</h4>
+                                        <a href="https://www.facebook.com/adaniechorze" target="_blank" class="text-sky-100 hover:text-white transition-colors">facebook.com/adaniechorze</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-sky-500 pt-6">
+                                <p class="text-sky-100 text-sm">
+                                    Zapraszamy do kontaktu! Chętnie odpowiemy na wszystkie pytania dotyczące rezerwacji i pobytu.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="lg:col-span-3 h-96 lg:h-auto">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1391.2853914703312!2d15.071336944041004!3d54.094067510465614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4700767c8f8824af%3A0xab2d863e60baa569!2sADA%20NIECHORZE!5e0!3m2!1spl!2spl!4v1759247011600!5m2!1spl!2spl"
+                                width="100%" height="100%"
+                                style="border:0; min-height: 400px;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-    </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-sky-800 text-white py-12">
-    <div class="container mx-auto px-6">
-      <div class="grid md:grid-cols-4 gap-8">
-        <div>
-          <img src="images/lighthouse.png" alt="Ada Niechorze Logo" class="h-16 mb-4 object-cover rounded">
-          <p class="text-sky-200"></p>
+    <footer class="bg-gray-900 text-gray-300 py-16">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="images/lighthouse.png" alt="Ada Niechorze Logo" class="h-12 w-12 object-cover rounded-lg">
+                        <span class="text-2xl font-bold text-white">Ada Niechorze</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Pensjonat nad morzem w sercu Niechorza. Komfort, spokój i bliskość natury.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-6">Kontakt</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i data-feather="map-pin" class="w-4 h-4 mr-2 mt-1 flex-shrink-0 text-sky-400"></i>
+                            <span class="text-gray-400">Polna 1, 72-350 Niechorze</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="phone" class="w-4 h-4 mr-2 mt-1 flex-shrink-0 text-sky-400"></i>
+                            <a href="tel:+48601886783" class="text-gray-400 hover:text-sky-400 transition-colors">+48 601 886 783</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-6">Nawigacja</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#o-nas" class="text-gray-400 hover:text-sky-400 transition-colors">O nas</a></li>
+                        <li><a href="#pokoje" class="text-gray-400 hover:text-sky-400 transition-colors">Pokoje</a></li>
+                        <li><a href="gallery.html" class="text-gray-400 hover:text-sky-400 transition-colors">Galeria</a></li>
+                        <li><a href="#kontakt" class="text-gray-400 hover:text-sky-400 transition-colors">Kontakt</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-6">Śledź nas</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/adaniechorze" target="_blank" class="bg-gray-800 p-3 rounded-lg hover:bg-sky-600 transition-colors">
+                            <i data-feather="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500">&copy; 2025 Ada Niechorze. Wszelkie prawa zastrzeżone.</p>
+            </div>
         </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-4">Kontakt</h3>
-          <p class="text-sky-200 mb-2">Niechorze, Polna 1</p>
-          <p class="text-sky-200 mb-2">Tel: +48 601 886 783</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-4">Linki</h3>
-          <ul class="space-y-2">
-            <li><a href="index.html" class="text-sky-200 hover:text-white">Strona główna</a></li>
-            <li><a href="gallery.html" class="text-sky-200 hover:text-white">Galeria</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-4">Znajdź nas na Facebooku</h3>
-          <div class="flex space-x-4">
-            <a href="https://www.facebook.com/adaniechorze" class="text-sky-200 hover:text-white"><i data-feather="facebook"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="border-t border-sky-700 mt-8 pt-8 text-center text-sky-300">
-        <p>&copy; 2025 Ada Niechorze. Wszelkie prawa zastrzeżone.</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
     <script>
         feather.replace();
@@ -313,10 +706,29 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
             });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
         });
     </script>
 </body>

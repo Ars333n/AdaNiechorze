@@ -3,104 +3,218 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galeria - Ada Niechorze</title>
+  <title>Galeria - Ada Niechorze | Pensjonat nad morzem</title>
+  <meta name="description" content="Zobacz galerię zdjęć Pensjonatu Ada w Niechorzu - nasze pokoje, otoczenie i udogodnienia.">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+    }
+    .gallery-item {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    .gallery-item img {
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .modal-backdrop {
+      backdrop-filter: blur(8px);
+    }
+    .thumbnail {
+      transition: all 0.3s ease;
+    }
+    .thumbnail:hover {
+      transform: scale(1.1);
+    }
+    .section-divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #0284c7 0%, #0ea5e9 100%);
+      margin: 0 auto;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .gallery-item {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+  </style>
 </head>
-<body class="font-sans bg-white text-gray-800">
+<body class="antialiased bg-gray-50 text-gray-900">
 
   <!-- Navigation -->
-  <nav class="bg-white shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto px-6 py-3">
+  <nav class="bg-white shadow-md sticky top-0 z-50 border-b border-gray-100">
+    <div class="container mx-auto px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
-        <div class="flex items-center">
-          <img src="images/logo.jpg" alt="Ada Niechorze Logo" class="h-12 mr-3 object-cover rounded">
-          <a href="index.html" class="text-2xl font-bold text-sky-800">Ada Niechorze</a>
-        </div>
-        <div class="hidden md:flex items-center space-x-8">
-          <a href="index.html" class="text-gray-600 hover:text-sky-600 font-medium">Strona główna</a>
-          <a href="gallery.html" class="text-sky-600 font-medium">Galeria</a>
-          <div class="flex items-center text-sky-800">
-            <i data-feather="phone" class="mr-2"></i>
-            <span>+48 601 886 783</span>
+        <div class="flex items-center space-x-3">
+          <img src="images/logo.jpg" alt="Ada Niechorze Logo" class="h-14 w-14 object-cover rounded-lg shadow-sm">
+          <div>
+            <a href="index.html" class="text-2xl lg:text-3xl font-bold text-sky-900 tracking-tight">Ada Niechorze</a>
+            <p class="text-xs text-gray-500 hidden sm:block">Pensjonat nad morzem</p>
           </div>
         </div>
-<button class="md:hidden focus:outline-none" id="menu-btn">
-          <i data-feather="menu"></i>
+        <div class="hidden lg:flex items-center space-x-8">
+          <a href="index.html#o-nas" class="text-gray-700 hover:text-sky-700 font-medium transition-colors">O nas</a>
+          <a href="index.html#pokoje" class="text-gray-700 hover:text-sky-700 font-medium transition-colors">Pokoje</a>
+          <a href="gallery.html" class="text-sky-700 font-semibold border-b-2 border-sky-700">Galeria</a>
+          <a href="index.html#kontakt" class="text-gray-700 hover:text-sky-700 font-medium transition-colors">Kontakt</a>
+          <div class="flex items-center text-sky-800 bg-sky-50 px-4 py-2 rounded-lg">
+            <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+            <span class="font-semibold text-sm">+48 601 886 783</span>
+          </div>
+        </div>
+        <button class="lg:hidden focus:outline-none text-gray-700" id="menu-btn">
+          <i data-feather="menu" class="w-6 h-6"></i>
         </button>
       </div>
       <!-- Mobile menu -->
-      <div class="md:hidden hidden mt-4" id="mobile-menu">
-        <a href="index.html" class="block py-2 text-sky-600 font-medium">Strona główna</a>
-        <a href="gallery.html" class="block py-2 text-gray-600 hover:text-sky-600">Galeria</a>
+      <div class="lg:hidden hidden mt-4 pb-4 border-t border-gray-100 pt-4" id="mobile-menu">
+        <a href="index.html#o-nas" class="block py-3 text-gray-700 hover:text-sky-700 font-medium transition-colors">O nas</a>
+        <a href="index.html#pokoje" class="block py-3 text-gray-700 hover:text-sky-700 font-medium transition-colors">Pokoje</a>
+        <a href="gallery.html" class="block py-3 text-sky-700 font-semibold">Galeria</a>
+        <a href="index.html#kontakt" class="block py-3 text-gray-700 hover:text-sky-700 font-medium transition-colors">Kontakt</a>
+        <div class="flex items-center text-sky-800 mt-4 bg-sky-50 px-4 py-3 rounded-lg">
+          <i data-feather="phone" class="mr-2 w-4 h-4"></i>
+          <span class="font-semibold">+48 601 886 783</span>
+        </div>
       </div>
     </div>
   </nav>
 
-  <!-- Gallery Section -->
-  <section class="py-16 bg-sky-50">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-sky-700 mb-4">Galeria zdjęć obiektu</h1>
-        <p class="text-xl text-gray-600">Zobacz nasze otoczenie i udogodnienia</p>
-        <div class="w-24 h-1 bg-sky-500 mx-auto mt-4"></div>
-      </div>
-
-      <!-- Gallery Grid -->
-      <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  <!-- Gallery Header -->
+  <section class="parallax relative flex items-center justify-center" style="background-image: url('images/sunset.jpg'); min-height: 500px; height: 60vh;">
+    <div class="absolute inset-0 bg-gradient-to-r from-sky-900/70 to-sky-800/70"></div>
+    <div class="relative container mx-auto px-6 text-center">
+      <div class="text-sky-100 font-semibold mb-3 uppercase tracking-wide text-sm">Odkryj nasze wnętrza</div>
+      <h1 class="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">Galeria zdjęć</h1>
+      <div class="section-divider mb-6"></div>
+      <p class="text-xl text-sky-50 max-w-3xl mx-auto leading-relaxed">
+        Zobacz nasze pokoje, piękne otoczenie i udogodnienia, które czekają na Państwa podczas pobytu
+      </p>
     </div>
   </section>
 
-  <!-- Modal -->
-  <div id="myModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 flex flex-col items-center justify-center">
-    <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300">&times;</button>
+  <!-- Gallery Grid Section -->
+  <section class="py-20 lg:py-28">
+    <div class="container mx-auto px-6 lg:px-8">
+      <!-- Filter/Category Info (optional) -->
+      <div class="text-center mb-12">
+        <p class="text-gray-600 text-lg">
+          <span class="font-semibold text-sky-700" id="imageCount">49</span> zdjęć w galerii
+        </p>
+      </div>
 
-    <button onclick="changeSlide(-1)" class="absolute left-4 bg-black bg-opacity-50 text-white p-4 rounded-full hover:bg-opacity-70 focus:outline-none">
+      <!-- Gallery Grid -->
+      <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+      <!-- Back to Top -->
+      <div class="text-center mt-16">
+        <a href="index.html" class="inline-flex items-center space-x-2 bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105">
+          <i data-feather="arrow-left" class="w-5 h-5"></i>
+          <span>Powrót do strony głównej</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div id="myModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-95 flex flex-col items-center justify-center modal-backdrop">
+    <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-gray-300 transition-all z-10 bg-black bg-opacity-50 w-12 h-12 rounded-full flex items-center justify-center hover:bg-opacity-70" aria-label="Close">
+      &times;
+    </button>
+
+    <!-- Previous Button -->
+    <button onclick="changeSlide(-1)" class="absolute left-4 md:left-8 bg-white bg-opacity-10 hover:bg-opacity-20 text-white p-4 rounded-full focus:outline-none transition-all z-10" aria-label="Previous">
       <i data-feather="chevron-left" class="w-8 h-8"></i>
     </button>
 
-    <div class="relative max-w-5xl w-full px-4">
-      <img id="modalImg" class="max-h-[80vh] mx-auto rounded shadow-lg" src="" alt="">
-      <div id="caption" class="text-center text-white mt-4 text-lg"></div>
+    <!-- Image Container -->
+    <div class="relative max-w-7xl w-full px-4 flex flex-col items-center">
+      <img id="modalImg" class="max-h-[70vh] max-w-full mx-auto rounded-lg shadow-2xl object-contain" src="" alt="">
+      <div id="caption" class="text-center text-white mt-6 text-lg font-medium"></div>
+      <div id="imageCounter" class="text-center text-sky-200 mt-2 text-sm"></div>
     </div>
 
-    <button onclick="changeSlide(1)" class="absolute right-4 bg-black bg-opacity-50 text-white p-4 rounded-full hover:bg-opacity-70 focus:outline-none">
+    <!-- Next Button -->
+    <button onclick="changeSlide(1)" class="absolute right-4 md:right-8 bg-white bg-opacity-10 hover:bg-opacity-20 text-white p-4 rounded-full focus:outline-none transition-all z-10" aria-label="Next">
       <i data-feather="chevron-right" class="w-8 h-8"></i>
     </button>
 
     <!-- Thumbnails -->
-    <div id="thumbnails" class="flex flex-wrap justify-center mt-6 gap-2 px-4 overflow-y-auto max-h-32"></div>
+    <div id="thumbnails" class="absolute bottom-6 left-0 right-0 flex flex-wrap justify-center gap-2 px-6 overflow-x-auto max-w-7xl mx-auto" style="max-height: 120px;"></div>
   </div>
 
   <!-- Footer -->
-  <footer class="bg-sky-800 text-white py-12">
-    <div class="container mx-auto px-6">
-      <div class="grid md:grid-cols-4 gap-8">
+  <footer class="bg-gray-900 text-gray-300 py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
         <div>
-          <img src="images/lighthouse.png" alt="Ada Niechorze Logo" class="h-16 mb-4 object-cover rounded">
-          <p class="text-sky-200"></p>
+          <div class="flex items-center space-x-3 mb-6">
+            <img src="images/lighthouse.png" alt="Ada Niechorze Logo" class="h-12 w-12 object-cover rounded-lg">
+            <span class="text-2xl font-bold text-white">Ada Niechorze</span>
+          </div>
+          <p class="text-gray-400 leading-relaxed">
+            Pensjonat nad morzem w sercu Niechorza. Komfort, spokój i bliskość natury.
+          </p>
         </div>
+        
         <div>
-          <h3 class="text-xl font-semibold mb-4">Kontakt</h3>
-          <p class="text-sky-200 mb-2">Niechorze, Polna 1</p>
-          <p class="text-sky-200 mb-2">Tel: +48 601 886 783</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-4">Linki</h3>
-          <ul class="space-y-2">
-            <li><a href="index.html" class="text-sky-200 hover:text-white">Strona główna</a></li>
-            <li><a href="gallery.html" class="text-sky-200 hover:text-white">Galeria</a></li>
+          <h3 class="text-xl font-bold text-white mb-6">Kontakt</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i data-feather="map-pin" class="w-4 h-4 mr-2 mt-1 flex-shrink-0 text-sky-400"></i>
+              <span class="text-gray-400">Polna 1, 72-350 Niechorze</span>
+            </li>
+            <li class="flex items-start">
+              <i data-feather="phone" class="w-4 h-4 mr-2 mt-1 flex-shrink-0 text-sky-400"></i>
+              <a href="tel:+48601886783" class="text-gray-400 hover:text-sky-400 transition-colors">+48 601 886 783</a>
+            </li>
           </ul>
         </div>
+        
         <div>
-          <h3 class="text-xl font-semibold mb-4">Znajdź nas na Facebooku</h3>
+          <h3 class="text-xl font-bold text-white mb-6">Nawigacja</h3>
+          <ul class="space-y-3">
+            <li><a href="index.html#o-nas" class="text-gray-400 hover:text-sky-400 transition-colors">O nas</a></li>
+            <li><a href="index.html#pokoje" class="text-gray-400 hover:text-sky-400 transition-colors">Pokoje</a></li>
+            <li><a href="gallery.html" class="text-gray-400 hover:text-sky-400 transition-colors">Galeria</a></li>
+            <li><a href="index.html#kontakt" class="text-gray-400 hover:text-sky-400 transition-colors">Kontakt</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-bold text-white mb-6">Śledź nas</h3>
           <div class="flex space-x-4">
-            <a href="https://www.facebook.com/adaniechorze" class="text-sky-200 hover:text-white"><i data-feather="facebook"></i></a>
+            <a href="https://www.facebook.com/adaniechorze" target="_blank" class="bg-gray-800 p-3 rounded-lg hover:bg-sky-600 transition-colors">
+              <i data-feather="facebook" class="w-5 h-5"></i>
+            </a>
           </div>
         </div>
       </div>
-      <div class="border-t border-sky-700 mt-8 pt-8 text-center text-sky-300">
-        <p>&copy; 2025 Ada Niechorze. Wszelkie prawa zastrzeżone.</p>
+      
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-500">&copy; 2025 Ada Niechorze. Wszelkie prawa zastrzeżone.</p>
       </div>
     </div>
   </footer>
@@ -114,10 +228,13 @@
       menu.classList.toggle('hidden');
     });
 
-    // Images
+    // Images array
     const images = [];
     for (let i = 0; i <= 48; i++) {
-      images.push({ src: `images/${i}.jpg`, caption: `Zdjęcie ${i}` });
+      images.push({ 
+        src: `images/${i}.jpg`, 
+        caption: `Zdjęcie ${i + 1}` 
+      });
     }
 
     const galleryGrid = document.getElementById('galleryGrid');
@@ -125,29 +242,44 @@
     const modal = document.getElementById('myModal');
     const modalImg = document.getElementById('modalImg');
     const captionText = document.getElementById('caption');
+    const imageCounter = document.getElementById('imageCounter');
     let currentIndex = 0;
 
-    // Build grid & thumbnails
+    // Build gallery grid & thumbnails
     images.forEach((img, i) => {
-      // Grid wrapper
+      // Gallery item wrapper
       const wrapper = document.createElement('div');
-      wrapper.className = "aspect-[16/9] overflow-hidden rounded-lg shadow-md cursor-pointer";
+      wrapper.className = "gallery-item bg-white rounded-xl overflow-hidden shadow-md";
+      wrapper.style.animationDelay = `${i * 0.05}s`;
 
-      // Grid image
+      // Gallery image container
+      const imgContainer = document.createElement('div');
+      imgContainer.className = "aspect-[4/3] overflow-hidden";
+
+      // Gallery image
       const gridImg = document.createElement('img');
       gridImg.src = img.src;
       gridImg.alt = img.caption;
-      gridImg.className = "w-full h-full object-cover hover:scale-105 transition-transform duration-300";
+      gridImg.className = "w-full h-full object-cover";
+      gridImg.loading = "lazy";
       gridImg.onclick = () => openModal(i);
 
-      wrapper.appendChild(gridImg);
+      imgContainer.appendChild(gridImg);
+      wrapper.appendChild(imgContainer);
+      
+      // Image info (optional)
+      const info = document.createElement('div');
+      info.className = "p-4";
+      info.innerHTML = `<p class="text-sm text-gray-600 font-medium">${img.caption}</p>`;
+      wrapper.appendChild(info);
+      
       galleryGrid.appendChild(wrapper);
 
-      // Thumbnail
+      // Thumbnail for modal
       const thumb = document.createElement('img');
       thumb.src = img.src;
       thumb.alt = img.caption;
-      thumb.className = "thumbnail w-20 h-14 object-cover rounded cursor-pointer opacity-60 hover:opacity-100";
+      thumb.className = "thumbnail w-20 h-16 object-cover rounded-lg cursor-pointer opacity-50 hover:opacity-100 transition-all";
       thumb.onclick = () => currentSlide(i);
       thumbnails.appendChild(thumb);
     });
@@ -157,6 +289,7 @@
       showSlide(currentIndex);
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+      feather.replace();
     }
 
     function closeModal() {
@@ -179,15 +312,33 @@
     function showSlide(index) {
       modalImg.src = images[index].src;
       captionText.innerHTML = images[index].caption;
+      imageCounter.innerHTML = `${index + 1} z ${images.length}`;
+      
+      // Update thumbnails
       document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-        thumb.classList.toggle('ring-2', i === index);
-        thumb.classList.toggle('ring-sky-500', i === index);
-        thumb.classList.toggle('opacity-100', i === index);
-        thumb.classList.toggle('opacity-60', i !== index);
+        if (i === index) {
+          thumb.classList.remove('opacity-50');
+          thumb.classList.add('opacity-100', 'ring-2', 'ring-sky-500');
+        } else {
+          thumb.classList.add('opacity-50');
+          thumb.classList.remove('opacity-100', 'ring-2', 'ring-sky-500');
+        }
       });
+
+      // Scroll thumbnail into view
+      const activeThumbnail = document.querySelectorAll('.thumbnail')[index];
+      if (activeThumbnail) {
+        activeThumbnail.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+      
+      feather.replace();
     }
 
-    // Close modal when clicking outside the image
+    // Close modal when clicking backdrop
     modal.addEventListener('click', function(e) {
       if (e.target === modal) {
         closeModal();
@@ -206,6 +357,28 @@
         }
       }
     });
+
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    modal.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    modal.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        changeSlide(1); // Swipe left
+      }
+      if (touchEndX > touchStartX + 50) {
+        changeSlide(-1); // Swipe right
+      }
+    }
   </script>
 </body>
 </html>
